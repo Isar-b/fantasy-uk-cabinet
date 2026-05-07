@@ -1,0 +1,15 @@
+{
+  "_comment": "Hand-maintained list of leadership-tier names (Tier S). Match to Parliament API name. Edit and re-run `npm run seed:mps`.",
+  "names": [
+    "Wes Streeting",
+    "Angela Rayner",
+    "Andy Burnham",
+    "Ed Miliband",
+    "Yvette Cooper",
+    "Lisa Nandy",
+    "Bridget Phillipson",
+    "Louise Haigh",
+    "Jess Phillips",
+    "Rosie Duffield"
+  ]
+}

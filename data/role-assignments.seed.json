@@ -1,0 +1,177 @@
+[
+  {
+    "mpId": "mr-douglas-alexander",
+    "roleType": "cabinet",
+    "titleLabel": "Scotland Secretary",
+    "startDate": "2026-05-07",
+    "endDate": null
+  },
+  {
+    "mpId": "heidi-alexander",
+    "roleType": "cabinet",
+    "titleLabel": "Transport Secretary",
+    "startDate": "2026-05-07",
+    "endDate": null
+  },
+  {
+    "mpId": "hilary-benn",
+    "roleType": "cabinet",
+    "titleLabel": "Northern Ireland Secretary",
+    "startDate": "2026-05-07",
+    "endDate": null
+  },
+  {
+    "mpId": "sir-alan-campbell",
+    "roleType": "cabinet",
+    "titleLabel": "Chief Whip (Commons)",
+    "startDate": "2026-05-07",
+    "endDate": null
+  },
+  {
+    "mpId": "yvette-cooper",
+    "roleType": "great_office",
+    "titleLabel": "Foreign Secretary",
+    "startDate": "2026-05-07",
+    "endDate": null
+  },
+  {
+    "mpId": "anneliese-dodds",
+    "roleType": "attending",
+    "titleLabel": "Minister of State for Development",
+    "startDate": "2026-05-07",
+    "endDate": null
+  },
+  {
+    "mpId": "john-healey",
+    "roleType": "great_office",
+    "titleLabel": "Defence Secretary",
+    "startDate": "2026-05-07",
+    "endDate": null
+  },
+  {
+    "mpId": "dan-jarvis",
+    "roleType": "attending",
+    "titleLabel": "Minister of State for Security",
+    "startDate": "2026-05-07",
+    "endDate": null
+  },
+  {
+    "mpId": "darren-jones",
+    "roleType": "cabinet",
+    "titleLabel": "Chief Secretary to the Treasury",
+    "startDate": "2026-05-07",
+    "endDate": null
+  },
+  {
+    "mpId": "liz-kendall",
+    "roleType": "cabinet",
+    "titleLabel": "Science, Innovation and Technology Secretary",
+    "startDate": "2026-05-07",
+    "endDate": null
+  },
+  {
+    "mpId": "peter-kyle",
+    "roleType": "cabinet",
+    "titleLabel": "Business and Trade Secretary",
+    "startDate": "2026-05-07",
+    "endDate": null
+  },
+  {
+    "mpId": "mr-david-lammy",
+    "roleType": "cabinet",
+    "titleLabel": "Deputy Prime Minister",
+    "startDate": "2026-05-07",
+    "endDate": null
+  },
+  {
+    "mpId": "shabana-mahmood",
+    "roleType": "great_office",
+    "titleLabel": "Home Secretary",
+    "startDate": "2026-05-07",
+    "endDate": null
+  },
+  {
+    "mpId": "pat-mcfadden",
+    "roleType": "cabinet",
+    "titleLabel": "Lord Chancellor and Justice Secretary",
+    "startDate": "2026-05-07",
+    "endDate": null
+  },
+  {
+    "mpId": "ed-miliband",
+    "roleType": "cabinet",
+    "titleLabel": "Energy Security and Net Zero Secretary",
+    "startDate": "2026-05-07",
+    "endDate": null
+  },
+  {
+    "mpId": "lisa-nandy",
+    "roleType": "cabinet",
+    "titleLabel": "Culture, Media and Sport Secretary",
+    "startDate": "2026-05-07",
+    "endDate": null
+  },
+  {
+    "mpId": "bridget-phillipson",
+    "roleType": "cabinet",
+    "titleLabel": "Education Secretary",
+    "startDate": "2026-05-07",
+    "endDate": null
+  },
+  {
+    "mpId": "lucy-powell",
+    "roleType": "cabinet",
+    "titleLabel": "Leader of the House of Commons",
+    "startDate": "2026-05-07",
+    "endDate": null
+  },
+  {
+    "mpId": "steve-reed",
+    "roleType": "cabinet",
+    "titleLabel": "Housing, Communities and Local Government Secretary",
+    "startDate": "2026-05-07",
+    "endDate": null
+  },
+  {
+    "mpId": "ellie-reeves",
+    "roleType": "attending",
+    "titleLabel": "Paymaster General",
+    "startDate": "2026-05-07",
+    "endDate": null
+  },
+  {
+    "mpId": "rachel-reeves",
+    "roleType": "great_office",
+    "titleLabel": "Chancellor of the Exchequer",
+    "startDate": "2026-05-07",
+    "endDate": null
+  },
+  {
+    "mpId": "emma-reynolds",
+    "roleType": "cabinet",
+    "titleLabel": "Environment, Food and Rural Affairs Secretary",
+    "startDate": "2026-05-07",
+    "endDate": null
+  },
+  {
+    "mpId": "sir-keir-starmer",
+    "roleType": "pm",
+    "titleLabel": "Prime Minister",
+    "startDate": "2026-05-07",
+    "endDate": null
+  },
+  {
+    "mpId": "jo-stevens",
+    "roleType": "cabinet",
+    "titleLabel": "Wales Secretary",
+    "startDate": "2026-05-07",
+    "endDate": null
+  },
+  {
+    "mpId": "wes-streeting",
+    "roleType": "cabinet",
+    "titleLabel": "Health and Social Care Secretary",
+    "startDate": "2026-05-07",
+    "endDate": null
+  }
+]

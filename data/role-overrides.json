@@ -1,0 +1,32 @@
+{
+  "_comment": "Hand-maintained map of MP name -> { titleLabel, roleType }. Used by the seeder to assign default tiers and to seed initial role assignments. Edit as the cabinet changes, then re-run `npm run seed:mps`. Names should match the Parliament Members API name exactly (e.g. 'Sir Keir Starmer'). The seeder is forgiving about case and prefixes.",
+  "Keir Starmer": { "titleLabel": "Prime Minister", "roleType": "pm" },
+  "Rachel Reeves": { "titleLabel": "Chancellor of the Exchequer", "roleType": "great_office" },
+  "Yvette Cooper": { "titleLabel": "Foreign Secretary", "roleType": "great_office" },
+  "Shabana Mahmood": { "titleLabel": "Home Secretary", "roleType": "great_office" },
+  "John Healey": { "titleLabel": "Defence Secretary", "roleType": "great_office" },
+
+  "David Lammy": { "titleLabel": "Deputy Prime Minister", "roleType": "cabinet" },
+  "Pat McFadden": { "titleLabel": "Lord Chancellor and Justice Secretary", "roleType": "cabinet" },
+  "Wes Streeting": { "titleLabel": "Health and Social Care Secretary", "roleType": "cabinet" },
+  "Bridget Phillipson": { "titleLabel": "Education Secretary", "roleType": "cabinet" },
+  "Peter Kyle": { "titleLabel": "Business and Trade Secretary", "roleType": "cabinet" },
+  "Ed Miliband": { "titleLabel": "Energy Security and Net Zero Secretary", "roleType": "cabinet" },
+  "Liz Kendall": { "titleLabel": "Science, Innovation and Technology Secretary", "roleType": "cabinet" },
+  "Pat McFadden 2": { "titleLabel": "Work and Pensions Secretary", "roleType": "cabinet" },
+  "Steve Reed": { "titleLabel": "Housing, Communities and Local Government Secretary", "roleType": "cabinet" },
+  "Heidi Alexander": { "titleLabel": "Transport Secretary", "roleType": "cabinet" },
+  "Emma Reynolds": { "titleLabel": "Environment, Food and Rural Affairs Secretary", "roleType": "cabinet" },
+  "Lisa Nandy": { "titleLabel": "Culture, Media and Sport Secretary", "roleType": "cabinet" },
+  "Hilary Benn": { "titleLabel": "Northern Ireland Secretary", "roleType": "cabinet" },
+  "Douglas Alexander": { "titleLabel": "Scotland Secretary", "roleType": "cabinet" },
+  "Jo Stevens": { "titleLabel": "Wales Secretary", "roleType": "cabinet" },
+  "Lucy Powell": { "titleLabel": "Leader of the House of Commons", "roleType": "cabinet" },
+  "Darren Jones": { "titleLabel": "Chief Secretary to the Treasury", "roleType": "cabinet" },
+  "Alan Campbell": { "titleLabel": "Chief Whip (Commons)", "roleType": "cabinet" },
+
+  "Richard Hermer": { "titleLabel": "Attorney General", "roleType": "attending" },
+  "Ellie Reeves": { "titleLabel": "Paymaster General", "roleType": "attending" },
+  "Anneliese Dodds": { "titleLabel": "Minister of State for Development", "roleType": "attending" },
+  "Dan Jarvis": { "titleLabel": "Minister of State for Security", "roleType": "attending" }
+}

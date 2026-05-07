@@ -1,65 +1,97 @@
-import Image from "next/image";
+import Link from "next/link";
+import { getCurrentUser } from "@/lib/auth";
+import { SCORING_DATE, SWAP_DEADLINE, timeUntil } from "@/lib/dates";
 
-export default function Home() {
+export default async function HomePage() {
+  const user = await getCurrentUser();
+  const swap = timeUntil(SWAP_DEADLINE);
+  const score = timeUntil(SCORING_DATE);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+      <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-3">
+        Fantasy UK Cabinet
+      </h1>
+      <p className="text-lg text-zinc-600 dark:text-zinc-400 mb-8">
+        Pick 10 Labour MPs for £100. Score points if they&rsquo;re in cabinet on{" "}
+        <strong>1 July 2026</strong>. Predict the exact role for bonus points.
+      </p>
+
+      <section className="mb-8 grid gap-4 sm:grid-cols-2">
+        <CountdownCard
+          label="Squad lock"
+          target="20 June 2026"
+          d={swap.days}
+          h={swap.hours}
+          past={swap.past}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+        <CountdownCard
+          label="Final scoring"
+          target="1 July 2026"
+          d={score.days}
+          h={score.hours}
+          past={score.past}
+        />
+      </section>
+
+      <section className="mb-10">
+        <h2 className="text-xl font-semibold mb-3">How it scores</h2>
+        <ul className="space-y-2 text-sm">
+          <li>🏆 <strong>Prime Minister</strong>: 5 points (+3 if predicted exactly)</li>
+          <li>🥇 <strong>Great Office</strong> (Chancellor / Foreign / Home / Defence): 3 points (+2 exact)</li>
+          <li>🪑 <strong>Cabinet minister</strong> (Sec of State, Deputy PM, etc.): 2 points (+1 exact)</li>
+          <li>📎 <strong>Attending cabinet</strong> without portfolio: 1 point</li>
+          <li>🪑 <em>Backbench / not in cabinet</em>: 0</li>
+        </ul>
+      </section>
+
+      <div className="flex flex-wrap gap-3">
+        {user ? (
+          <Link
+            href="/pick"
+            className="px-5 py-3 rounded-md bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 font-medium"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            Pick your squad →
+          </Link>
+        ) : (
+          <Link
+            href="/login"
+            className="px-5 py-3 rounded-md bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 font-medium"
           >
-            Documentation
-          </a>
-        </div>
-      </main>
+            Sign in to play
+          </Link>
+        )}
+        <Link
+          href="/leaderboard"
+          className="px-5 py-3 rounded-md border border-zinc-300 dark:border-zinc-700 font-medium"
+        >
+          See leaderboard
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+function CountdownCard({
+  label,
+  target,
+  d,
+  h,
+  past,
+}: {
+  label: string;
+  target: string;
+  d: number;
+  h: number;
+  past: boolean;
+}) {
+  return (
+    <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4">
+      <div className="text-xs uppercase tracking-wide text-zinc-500">{label}</div>
+      <div className="text-2xl font-semibold mt-1">
+        {past ? "Passed" : `${d}d ${h}h`}
+      </div>
+      <div className="text-xs text-zinc-500 mt-1">{target}</div>
     </div>
   );
 }

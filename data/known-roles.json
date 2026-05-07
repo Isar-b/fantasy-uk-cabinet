@@ -1,0 +1,35 @@
+[
+  { "titleLabel": "Prime Minister", "roleType": "pm" },
+
+  { "titleLabel": "Chancellor of the Exchequer", "roleType": "great_office" },
+  { "titleLabel": "Foreign Secretary", "roleType": "great_office" },
+  { "titleLabel": "Home Secretary", "roleType": "great_office" },
+  { "titleLabel": "Defence Secretary", "roleType": "great_office" },
+
+  { "titleLabel": "Deputy Prime Minister", "roleType": "cabinet" },
+  { "titleLabel": "Chancellor of the Duchy of Lancaster", "roleType": "cabinet" },
+  { "titleLabel": "Lord Chancellor and Justice Secretary", "roleType": "cabinet" },
+  { "titleLabel": "Health and Social Care Secretary", "roleType": "cabinet" },
+  { "titleLabel": "Education Secretary", "roleType": "cabinet" },
+  { "titleLabel": "Business and Trade Secretary", "roleType": "cabinet" },
+  { "titleLabel": "Energy Security and Net Zero Secretary", "roleType": "cabinet" },
+  { "titleLabel": "Science, Innovation and Technology Secretary", "roleType": "cabinet" },
+  { "titleLabel": "Work and Pensions Secretary", "roleType": "cabinet" },
+  { "titleLabel": "Housing, Communities and Local Government Secretary", "roleType": "cabinet" },
+  { "titleLabel": "Transport Secretary", "roleType": "cabinet" },
+  { "titleLabel": "Environment, Food and Rural Affairs Secretary", "roleType": "cabinet" },
+  { "titleLabel": "Culture, Media and Sport Secretary", "roleType": "cabinet" },
+  { "titleLabel": "Northern Ireland Secretary", "roleType": "cabinet" },
+  { "titleLabel": "Scotland Secretary", "roleType": "cabinet" },
+  { "titleLabel": "Wales Secretary", "roleType": "cabinet" },
+  { "titleLabel": "Leader of the House of Commons", "roleType": "cabinet" },
+  { "titleLabel": "Chief Secretary to the Treasury", "roleType": "cabinet" },
+  { "titleLabel": "Chief Whip (Commons)", "roleType": "cabinet" },
+
+  { "titleLabel": "Attorney General", "roleType": "attending" },
+  { "titleLabel": "Paymaster General", "roleType": "attending" },
+  { "titleLabel": "Minister without Portfolio", "roleType": "attending" },
+  { "titleLabel": "Minister of State for Development", "roleType": "attending" },
+  { "titleLabel": "Minister of State for Security", "roleType": "attending" },
+  { "titleLabel": "Minister of State for Veterans", "roleType": "attending" }
+]

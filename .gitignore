@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local persisted state (keeps seeds; ignores user runtime data)
+data/users.json
+data/cabinets.json
+data/leagues.json
+data/settings.json
+data/mps.json
+data/role-assignments.json
