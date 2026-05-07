@@ -20,15 +20,12 @@ export default async function LeaguePage(props: {
   const isMember = league.memberIds.includes(user.id);
   if (!isMember) {
     return (
-      <div className="max-w-md mx-auto px-4 py-10">
-        <h1 className="text-2xl font-bold mb-3">{league.name}</h1>
-        <p className="text-sm mb-4">
-          You aren&rsquo;t a member of this league. Ask the owner for the join
-          code.
+      <div className="max-w-[640px] mx-auto px-4 sm:px-6 py-10">
+        <h1 className="text-3xl font-bold mb-4 text-[#0b0c0c]">{league.name}</h1>
+        <p className="text-base mb-4">
+          You aren&rsquo;t a member of this league. Ask the owner for the join code.
         </p>
-        <Link href="/leagues" className="text-sm underline">
-          ← Back to leagues
-        </Link>
+        <Link href="/leagues">← Back to leagues</Link>
       </div>
     );
   }
@@ -37,42 +34,47 @@ export default async function LeaguePage(props: {
   const isOwner = league.ownerId === user.id;
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
-      <div className="flex items-baseline justify-between mb-1">
-        <h1 className="text-2xl font-bold">{league.name}</h1>
-        <span className="text-xs text-zinc-500">
-          Code <span className="font-mono">{league.joinCode}</span>
+    <div className="max-w-[960px] mx-auto px-4 sm:px-6 py-8">
+      <div className="flex items-baseline justify-between mb-2">
+        <h1 className="text-3xl font-bold text-[#0b0c0c]">{league.name}</h1>
+        <span className="text-sm text-[#505a5f]">
+          Code <span className="font-mono font-bold">{league.joinCode}</span>
         </span>
       </div>
-      <p className="text-sm text-zinc-500 mb-6">
+      <p className="text-sm text-[#505a5f] mb-6">
         {league.memberIds.length} member{league.memberIds.length === 1 ? "" : "s"}
       </p>
 
       {error && (
-        <div className="mb-4 p-3 rounded-md bg-red-50 text-red-800 text-sm dark:bg-red-950 dark:text-red-200">
-          {error}
+        <div className="border-l-[10px] border-[#d4351c] pl-4 py-3 mb-6">
+          <p className="text-[#d4351c] font-bold">{error}</p>
         </div>
       )}
 
-      <table className="w-full text-sm">
-        <thead className="text-xs uppercase tracking-wide text-zinc-500 border-b border-zinc-200 dark:border-zinc-800">
+      <table className="w-full text-base">
+        <thead className="border-b-2 border-[#0b0c0c]">
           <tr>
-            <th className="text-left py-2 w-10">#</th>
-            <th className="text-left py-2">Player</th>
-            <th className="text-right py-2">Points</th>
-            <th className="text-right py-2 hidden sm:table-cell">Squad</th>
+            <th className="text-left py-2 w-12 font-bold">#</th>
+            <th className="text-left py-2 font-bold">Player</th>
+            <th className="text-right py-2 font-bold">Points</th>
+            <th className="text-right py-2 hidden sm:table-cell font-bold">Squad</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-zinc-100 dark:divide-zinc-900">
+        <tbody>
           {rows.map((r, i) => (
-            <tr key={r.userId} className={r.userId === user.id ? "bg-amber-50/50 dark:bg-amber-950/30" : ""}>
-              <td className="py-2 text-zinc-500 tabular-nums">{i + 1}</td>
-              <td className="py-2 font-medium">
+            <tr
+              key={r.userId}
+              className={`border-b border-[#b1b4b6] ${r.userId === user.id ? "bg-[#fff7bf]" : ""}`}
+            >
+              <td className="py-3 text-[#505a5f] tabular-nums">{i + 1}</td>
+              <td className="py-3 font-bold">
                 {r.displayName}
-                {r.userId === league.ownerId && <span className="ml-2 text-xs text-amber-600">owner</span>}
+                {r.userId === league.ownerId && (
+                  <span className="ml-2 govuk-tag bg-[#1d70b8] text-white">Owner</span>
+                )}
               </td>
-              <td className="py-2 text-right tabular-nums font-semibold">{r.totalPoints}</td>
-              <td className="py-2 text-right tabular-nums hidden sm:table-cell text-zinc-500">
+              <td className="py-3 text-right tabular-nums font-bold text-2xl">{r.totalPoints}</td>
+              <td className="py-3 text-right tabular-nums hidden sm:table-cell text-[#505a5f]">
                 {r.pickedCount}/10
               </td>
             </tr>
@@ -83,7 +85,7 @@ export default async function LeaguePage(props: {
       {!isOwner && (
         <form action={leaveLeague} className="mt-8">
           <input type="hidden" name="leagueId" value={league.id} />
-          <button className="text-xs text-zinc-500 hover:text-red-600 underline">
+          <button className="govuk-button govuk-button--warning">
             Leave league
           </button>
         </form>

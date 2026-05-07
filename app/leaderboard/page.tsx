@@ -5,27 +5,29 @@ export const dynamic = "force-dynamic";
 export default async function LeaderboardPage() {
   const rows = await computeLeaderboard();
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-4">Global leaderboard</h1>
+    <div className="max-w-[960px] mx-auto px-4 sm:px-6 py-8">
+      <h1 className="text-3xl font-bold mb-6 text-[#0b0c0c]">Global leaderboard</h1>
       {rows.length === 0 ? (
-        <p className="text-zinc-500">No players yet — be the first to pick a squad.</p>
+        <div className="govuk-inset-text">
+          <p>No players yet — be the first to pick a squad.</p>
+        </div>
       ) : (
-        <table className="w-full text-sm">
-          <thead className="text-xs uppercase tracking-wide text-zinc-500 border-b border-zinc-200 dark:border-zinc-800">
+        <table className="w-full text-base">
+          <thead className="border-b-2 border-[#0b0c0c]">
             <tr>
-              <th className="text-left py-2 w-10">#</th>
-              <th className="text-left py-2">Player</th>
-              <th className="text-right py-2">Points</th>
-              <th className="text-right py-2 hidden sm:table-cell">Spent</th>
+              <th className="text-left py-2 w-12 font-bold">#</th>
+              <th className="text-left py-2 font-bold">Player</th>
+              <th className="text-right py-2 font-bold">Points</th>
+              <th className="text-right py-2 hidden sm:table-cell font-bold">Spent</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-zinc-100 dark:divide-zinc-900">
+          <tbody>
             {rows.map((r, i) => (
-              <tr key={r.userId}>
-                <td className="py-2 text-zinc-500 tabular-nums">{i + 1}</td>
-                <td className="py-2 font-medium">{r.displayName}</td>
-                <td className="py-2 text-right tabular-nums font-semibold">{r.totalPoints}</td>
-                <td className="py-2 text-right tabular-nums hidden sm:table-cell text-zinc-500">
+              <tr key={r.userId} className="border-b border-[#b1b4b6]">
+                <td className="py-3 text-[#505a5f] tabular-nums">{i + 1}</td>
+                <td className="py-3 font-bold">{r.displayName}</td>
+                <td className="py-3 text-right tabular-nums font-bold text-2xl">{r.totalPoints}</td>
+                <td className="py-3 text-right tabular-nums hidden sm:table-cell text-[#505a5f]">
                   £{r.totalCost.toFixed(2)}
                 </td>
               </tr>
@@ -33,7 +35,7 @@ export default async function LeaderboardPage() {
           </tbody>
         </table>
       )}
-      <p className="text-xs text-zinc-500 mt-4">
+      <p className="text-sm text-[#505a5f] mt-6">
         Live score from current cabinet. Final score freezes 1 July 2026.
       </p>
     </div>

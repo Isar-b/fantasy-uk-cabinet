@@ -1,26 +1,224 @@
 @import "tailwindcss";
 
+/* GOV.UK design system palette */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --govuk-text: #0b0c0c;
+  --govuk-secondary-text: #505a5f;
+  --govuk-background: #ffffff;
+  --govuk-border: #b1b4b6;
+  --govuk-link: #1d70b8;
+  --govuk-link-hover: #003078;
+  --govuk-link-visited: #4c2c92;
+  --govuk-focus: #fd0;
+  --govuk-focus-text: #0b0c0c;
+  --govuk-button: #00703c;
+  --govuk-button-hover: #005a30;
+  --govuk-button-shadow: #002d18;
+  --govuk-error: #d4351c;
+  --govuk-success: #00703c;
+  --govuk-light-grey: #f3f2f1;
+  --govuk-mid-grey: #b1b4b6;
+  --govuk-brand: #1d70b8;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--govuk-background);
+  --color-foreground: var(--govuk-text);
+  --color-govuk-text: var(--govuk-text);
+  --color-govuk-secondary: var(--govuk-secondary-text);
+  --color-govuk-border: var(--govuk-border);
+  --color-govuk-link: var(--govuk-link);
+  --color-govuk-link-hover: var(--govuk-link-hover);
+  --color-govuk-link-visited: var(--govuk-link-visited);
+  --color-govuk-focus: var(--govuk-focus);
+  --color-govuk-button: var(--govuk-button);
+  --color-govuk-button-hover: var(--govuk-button-hover);
+  --color-govuk-error: var(--govuk-error);
+  --color-govuk-light-grey: var(--govuk-light-grey);
+  --color-govuk-brand: var(--govuk-brand);
+  --font-sans: Arial, Helvetica, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--govuk-background);
+  color: var(--govuk-text);
   font-family: Arial, Helvetica, sans-serif;
+  font-size: 19px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (max-width: 640px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+/* GOV.UK link style: blue + underline by default */
+a {
+  color: var(--govuk-link);
+  text-decoration: underline;
+  text-decoration-thickness: max(1px, 0.0625rem);
+  text-underline-offset: 0.1em;
+}
+a:hover {
+  color: var(--govuk-link-hover);
+  text-decoration-thickness: max(3px, 0.1875rem, 0.12em);
+}
+a:focus {
+  outline: 3px solid transparent;
+  background-color: var(--govuk-focus);
+  color: var(--govuk-focus-text);
+  box-shadow: 0 -2px var(--govuk-focus), 0 4px var(--govuk-focus-text);
+  text-decoration: none;
+}
+
+/* GOV.UK button style */
+.govuk-button {
+  display: inline-block;
+  background-color: var(--govuk-button);
+  color: #ffffff;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.1875;
+  padding: 0.5rem 0.75rem 0.4375rem;
+  border: 2px solid transparent;
+  border-radius: 0;
+  box-shadow: 0 2px 0 var(--govuk-button-shadow);
+  text-decoration: none;
+  cursor: pointer;
+}
+.govuk-button:hover {
+  background-color: var(--govuk-button-hover);
+  color: #ffffff;
+  text-decoration: none;
+}
+.govuk-button:active {
+  top: 2px;
+  box-shadow: none;
+}
+.govuk-button:focus {
+  background-color: var(--govuk-focus);
+  color: var(--govuk-focus-text);
+  border-color: var(--govuk-focus);
+  box-shadow: 0 2px 0 var(--govuk-focus-text);
+  outline: 3px solid transparent;
+}
+.govuk-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.govuk-button--secondary {
+  background-color: var(--govuk-light-grey);
+  color: var(--govuk-text);
+  box-shadow: 0 2px 0 #929191;
+}
+.govuk-button--secondary:hover {
+  background-color: #dbdad9;
+  color: var(--govuk-text);
+}
+.govuk-button--warning {
+  background-color: var(--govuk-error);
+  color: #ffffff;
+  box-shadow: 0 2px 0 #55150b;
+}
+.govuk-button--warning:hover {
+  background-color: #aa2a16;
+  color: #ffffff;
+}
+
+/* GOV.UK input style */
+.govuk-input,
+.govuk-select,
+.govuk-textarea {
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.25;
+  padding: 5px;
+  border: 2px solid var(--govuk-text);
+  border-radius: 0;
+  background-color: #ffffff;
+  color: var(--govuk-text);
+  width: 100%;
+  box-sizing: border-box;
+}
+.govuk-input:focus,
+.govuk-select:focus,
+.govuk-textarea:focus {
+  outline: 3px solid var(--govuk-focus);
+  outline-offset: 0;
+  box-shadow: inset 0 0 0 2px;
+}
+
+/* GOV.UK heading section break */
+.govuk-section-break {
+  border: 0;
+  border-bottom: 1px solid var(--govuk-border);
+  margin: 2rem 0;
+}
+.govuk-section-break--m {
+  margin: 1.5rem 0;
+}
+.govuk-section-break--l {
+  margin: 2.5rem 0;
+}
+.govuk-section-break--visible {
+  border-bottom-width: 1px;
+}
+
+/* Heading underline (the blue rule under "Cabinet ministers" on gov.uk) */
+.govuk-heading-with-rule {
+  border-bottom: 4px solid var(--govuk-brand);
+  padding-bottom: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Detail summary disclosure */
+details > summary {
+  cursor: pointer;
+  color: var(--govuk-link);
+  text-decoration: underline;
+  text-decoration-thickness: max(1px, 0.0625rem);
+}
+details > summary:hover {
+  color: var(--govuk-link-hover);
+  text-decoration-thickness: max(3px, 0.1875rem);
+}
+details > summary:focus {
+  outline: 3px solid transparent;
+  background-color: var(--govuk-focus);
+  box-shadow: 0 -2px var(--govuk-focus), 0 4px var(--govuk-focus-text);
+}
+
+/* Tag */
+.govuk-tag {
+  display: inline-block;
+  padding: 0 8px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 1.25;
+  text-transform: uppercase;
+  background-color: var(--govuk-link);
+  color: #ffffff;
+}
+
+/* Inset text */
+.govuk-inset-text {
+  padding: 1rem;
+  margin: 1rem 0;
+  border-left: 10px solid var(--govuk-border);
+  background: transparent;
+}
+
+/* Phase banner */
+.govuk-phase-banner {
+  border-bottom: 1px solid var(--govuk-border);
+  padding: 0.5rem 0;
+  font-size: 0.875rem;
 }

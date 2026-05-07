@@ -91,6 +91,11 @@ async function main() {
   ) as { names: string[] };
   const leadership = new Set(leadershipRaw.names.map(normalizeName));
 
+  const dTierRaw = JSON.parse(
+    await fs.readFile(path.join(DATA, "d-tier-mps.json"), "utf-8")
+  ) as { names: string[] };
+  const dTier = new Set(dTierRaw.names.map(normalizeName));
+
   const mps: MP[] = [];
   const roleAssignments: RoleAssignment[] = [];
   const seenSlugs = new Set<string>();
@@ -109,6 +114,7 @@ async function main() {
 
     const override = overrides.get(norm);
     const isLeadership = leadership.has(norm);
+    const isDTier = dTier.has(norm);
     let tier: Tier;
     if (override?.roleType === "pm" || isLeadership) {
       tier = "S";
@@ -118,6 +124,8 @@ async function main() {
       tier = "B";
     } else if (override?.roleType === "attending") {
       tier = "C";
+    } else if (isDTier) {
+      tier = "D";
     } else {
       tier = "E";
     }
@@ -176,13 +184,17 @@ async function main() {
   console.log(`Tier counts:`, tierCounts);
   console.log(`Wrote ${roleAssignments.length} role assignments`);
 
-  const overrideKeys = Array.from(overrides.keys());
   const apiNames = new Set(apiMembers.map((m) => normalizeName(m.value.nameDisplayAs)));
-  const missing = overrideKeys.filter((k) => !apiNames.has(k));
-  if (missing.length) {
-    console.log("\nWARNING: these override names had no exact match in the API:");
-    for (const m of missing) console.log("  -", m);
-    console.log("Edit data/role-overrides.json so the keys match Parliament's name format.");
+  const missingOverrides = Array.from(overrides.keys()).filter((k) => !apiNames.has(k));
+  const missingD = Array.from(dTier).filter((k) => !apiNames.has(k));
+  const missingS = Array.from(leadership).filter((k) => !apiNames.has(k));
+
+  if (missingOverrides.length || missingD.length || missingS.length) {
+    console.log("\nWARNING: these names had no exact match in the API:");
+    for (const m of missingOverrides) console.log("  override:", m);
+    for (const m of missingS) console.log("  leadership:", m);
+    for (const m of missingD) console.log("  d-tier:", m);
+    console.log("Edit the relevant JSON file so keys match Parliament's name format.");
   }
 }
 

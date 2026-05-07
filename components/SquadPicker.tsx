@@ -13,20 +13,20 @@ type KnownRole = { titleLabel: string; roleType: string };
 
 const TIER_ORDER: Tier[] = ["S", "A", "B", "C", "D", "E"];
 
-const TIER_BADGE: Record<Tier, string> = {
-  S: "bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-200",
-  A: "bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-200",
-  B: "bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-200",
-  C: "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-200",
-  D: "bg-sky-100 text-sky-800 dark:bg-sky-950 dark:text-sky-200",
-  E: "bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300",
+const TIER_TAG: Record<Tier, string> = {
+  S: "bg-[#4c2c92] text-white",
+  A: "bg-[#d4351c] text-white",
+  B: "bg-[#f47738] text-white",
+  C: "bg-[#00703c] text-white",
+  D: "bg-[#1d70b8] text-white",
+  E: "bg-[#505a5f] text-white",
 };
 
-const ROLE_BADGE: Record<string, string> = {
-  pm: "bg-yellow-200 text-yellow-900",
-  great_office: "bg-rose-200 text-rose-900",
-  cabinet: "bg-amber-200 text-amber-900",
-  attending: "bg-emerald-200 text-emerald-900",
+const ROLE_TAG: Record<string, string> = {
+  pm: "bg-[#fd0] text-[#0b0c0c]",
+  great_office: "bg-[#d4351c] text-white",
+  cabinet: "bg-[#f47738] text-white",
+  attending: "bg-[#00703c] text-white",
 };
 
 const ROLE_LABEL: Record<string, string> = {
@@ -52,7 +52,7 @@ export function SquadPicker({
   const [picks, setPicks] = useState<PickT[]>(initialPicks);
   const [search, setSearch] = useState("");
   const [tierFilter, setTierFilter] = useState<Set<Tier>>(
-    new Set(["S", "A", "B", "C"])
+    new Set(["S", "A", "B", "C", "D"])
   );
   const [showAll, setShowAll] = useState(false);
   const [sortBy, setSortBy] = useState<"price" | "name" | "tier">("price");
@@ -143,7 +143,7 @@ export function SquadPicker({
         picks: picks.map((p) => ({ mpId: p.mpId, predictedRole: p.predictedRole ?? null })),
       });
       if (res.ok) {
-        setMessage({ kind: "ok", text: `Saved! Total spend: £${res.totalCost.toFixed(2)}` });
+        setMessage({ kind: "ok", text: `Saved. Total spend: £${res.totalCost.toFixed(2)}` });
       } else {
         setMessage({ kind: "err", text: res.error });
       }
@@ -151,41 +151,43 @@ export function SquadPicker({
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-6">
-      <aside className="lg:sticky lg:top-20 lg:self-start space-y-4">
+    <div className="grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-8">
+      <aside className="lg:sticky lg:top-4 lg:self-start space-y-4">
         {locked && (
-          <div className="p-3 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 text-sm">
-            🔒 Squads locked — read-only.
+          <div className="border-l-[10px] border-[#0b0c0c] pl-4 py-3">
+            <p className="text-base font-bold">Squads locked — read-only</p>
           </div>
         )}
-        <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4">
-          <div className="flex items-baseline justify-between mb-2">
-            <span className="text-sm uppercase tracking-wide text-zinc-500">
-              Budget
-            </span>
-            <span className={`text-sm font-medium ${overBudget ? "text-red-600" : ""}`}>
-              £{totalCost.toFixed(2)} / £100
-            </span>
-          </div>
-          <div className="h-2 bg-zinc-200 dark:bg-zinc-800 rounded overflow-hidden">
-            <div
-              className={`h-full ${overBudget ? "bg-red-500" : "bg-emerald-500"}`}
-              style={{ width: `${Math.min(100, (totalCost / 100) * 100)}%` }}
-            />
-          </div>
-          <div className="text-xs text-zinc-500 mt-2">
-            {overBudget
-              ? `Over by £${(totalCost - 100).toFixed(2)}`
-              : `£${remaining.toFixed(2)} remaining`}{" "}
-            · {picks.length}/10 picked
+
+        <div>
+          <h2 className="text-xl font-bold mb-2">Budget</h2>
+          <div className="border border-[#b1b4b6] p-4">
+            <div className="flex items-baseline justify-between mb-2">
+              <span className="text-sm text-[#505a5f] uppercase font-bold tracking-wide">
+                Spent
+              </span>
+              <span className={`text-2xl font-bold tabular-nums ${overBudget ? "text-[#d4351c]" : "text-[#0b0c0c]"}`}>
+                £{totalCost.toFixed(2)}
+              </span>
+            </div>
+            <div className="h-2 bg-[#f3f2f1] overflow-hidden">
+              <div
+                className={overBudget ? "bg-[#d4351c] h-full" : "bg-[#00703c] h-full"}
+                style={{ width: `${Math.min(100, (totalCost / 100) * 100)}%` }}
+              />
+            </div>
+            <div className="text-sm text-[#505a5f] mt-2">
+              {overBudget
+                ? `Over by £${(totalCost - 100).toFixed(2)}`
+                : `£${remaining.toFixed(2)} remaining`}{" "}
+              · {picks.length}/10 picked
+            </div>
           </div>
         </div>
 
-        <div className="rounded-lg border border-zinc-200 dark:border-zinc-800">
-          <div className="px-4 py-2 border-b border-zinc-200 dark:border-zinc-800 text-sm font-medium">
-            Your squad
-          </div>
-          <ul className="divide-y divide-zinc-200 dark:divide-zinc-800">
+        <div>
+          <h2 className="text-xl font-bold mb-2">Your squad</h2>
+          <ul className="border border-[#b1b4b6] divide-y divide-[#b1b4b6]">
             {Array.from({ length: 10 }).map((_, i) => {
               const pick = picks[i];
               const mp = pick ? mpById.get(pick.mpId) : null;
@@ -194,31 +196,26 @@ export function SquadPicker({
                   {mp ? (
                     <div className="flex flex-col gap-1">
                       <div className="flex items-center justify-between gap-2">
-                        <button
-                          type="button"
-                          onClick={() => togglePick(mp.id)}
-                          disabled={locked}
-                          className="text-left flex-1 min-w-0"
-                        >
+                        <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2">
-                            <span className={`text-[10px] px-1.5 py-0.5 rounded ${TIER_BADGE[mp.tier]}`}>
+                            <span className={`govuk-tag ${TIER_TAG[mp.tier]}`}>
                               {mp.tier}
                             </span>
-                            <span className="truncate font-medium">{mp.name}</span>
+                            <span className="truncate font-bold text-[#0b0c0c]">{mp.name}</span>
                           </div>
-                          <div className="text-xs text-zinc-500 truncate">
+                          <div className="text-xs text-[#505a5f] truncate">
                             {mp.constituency}
                           </div>
-                        </button>
-                        <span className="text-xs tabular-nums">£{mp.price.toFixed(2)}</span>
+                        </div>
+                        <span className="text-base font-bold tabular-nums whitespace-nowrap">£{mp.price.toFixed(2)}</span>
                         {!locked && (
                           <button
                             type="button"
                             onClick={() => togglePick(mp.id)}
-                            className="text-zinc-400 hover:text-red-500 text-lg leading-none px-1"
-                            aria-label="Remove"
+                            className="text-[#1d70b8] hover:text-[#d4351c] underline text-sm shrink-0"
+                            aria-label={`Remove ${mp.name}`}
                           >
-                            ×
+                            Remove
                           </button>
                         )}
                       </div>
@@ -226,7 +223,7 @@ export function SquadPicker({
                         disabled={locked}
                         value={pick.predictedRole ?? ""}
                         onChange={(e) => setPredicted(mp.id, e.target.value)}
-                        className="text-xs bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded px-1 py-1"
+                        className="govuk-select text-sm"
                         title="Predict the exact role for bonus points"
                       >
                         <option value="">— predict role (optional) —</option>
@@ -243,7 +240,7 @@ export function SquadPicker({
                       </select>
                     </div>
                   ) : (
-                    <span className="text-zinc-400 italic">Slot {i + 1} empty</span>
+                    <span className="text-[#505a5f] italic">Slot {i + 1} empty</span>
                   )}
                 </li>
               );
@@ -255,49 +252,58 @@ export function SquadPicker({
           type="button"
           onClick={onSave}
           disabled={!canSave || isPending}
-          className="w-full px-4 py-2 rounded-md bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 font-medium text-sm disabled:opacity-50"
+          className="govuk-button w-full"
         >
           {isPending ? "Saving…" : "Save squad"}
         </button>
         {message && (
           <div
-            className={`p-3 rounded-md text-sm ${
+            className={`border-l-[10px] pl-4 py-3 ${
               message.kind === "ok"
-                ? "bg-emerald-50 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-200"
-                : "bg-red-50 text-red-800 dark:bg-red-950 dark:text-red-200"
+                ? "border-[#00703c]"
+                : "border-[#d4351c]"
             }`}
           >
-            {message.text}
+            <p
+              className={`text-base font-bold ${
+                message.kind === "ok" ? "text-[#00703c]" : "text-[#d4351c]"
+              }`}
+            >
+              {message.text}
+            </p>
           </div>
         )}
       </aside>
 
       <section>
-        <h1 className="text-2xl font-bold mb-3">Pick your cabinet</h1>
+        <h1 className="text-3xl font-bold mb-4 text-[#0b0c0c]">Pick your cabinet</h1>
         <div className="space-y-3 mb-4">
-          <input
-            type="search"
-            placeholder="Search name or constituency…"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full px-3 py-2 rounded-md border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-sm"
-          />
+          <label className="block">
+            <span className="text-base font-bold text-[#0b0c0c]">Search</span>
+            <input
+              type="search"
+              placeholder="Name or constituency"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="govuk-input mt-1"
+            />
+          </label>
           <div className="flex flex-wrap items-center gap-2">
             {TIER_ORDER.map((t) => (
               <button
                 key={t}
                 type="button"
                 onClick={() => toggleTier(t)}
-                className={`text-xs px-2 py-1 rounded-md border transition-colors ${
+                className={`text-sm px-3 py-1 border-2 transition-colors ${
                   tierFilter.has(t)
-                    ? `${TIER_BADGE[t]} border-transparent`
-                    : "border-zinc-300 dark:border-zinc-700 text-zinc-500"
+                    ? `${TIER_TAG[t]} border-transparent`
+                    : "border-[#0b0c0c] text-[#0b0c0c] bg-white"
                 }`}
               >
                 Tier {t}
               </button>
             ))}
-            <label className="ml-2 text-xs flex items-center gap-1 select-none">
+            <label className="ml-2 text-base flex items-center gap-2 select-none">
               <input
                 type="checkbox"
                 checked={showAll}
@@ -308,23 +314,23 @@ export function SquadPicker({
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as "price" | "name" | "tier")}
-              className="ml-auto text-xs px-2 py-1 rounded-md border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900"
+              className="govuk-select ml-auto text-sm w-auto"
             >
-              <option value="price">Sort: Price</option>
-              <option value="name">Sort: Name</option>
-              <option value="tier">Sort: Tier</option>
+              <option value="price">Sort: price</option>
+              <option value="name">Sort: name</option>
+              <option value="tier">Sort: tier</option>
             </select>
           </div>
-          <div className="text-xs text-zinc-500">
+          <div className="text-sm text-[#505a5f]">
             {visibleMPs.length} MP{visibleMPs.length === 1 ? "" : "s"} shown
           </div>
         </div>
 
-        <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 overflow-hidden">
+        <div className="border border-[#b1b4b6]">
           <List<MPRowProps>
             rowComponent={MPRow}
             rowCount={visibleMPs.length}
-            rowHeight={64}
+            rowHeight={68}
             rowProps={{
               mps: visibleMPs,
               pickedSet: new Set(picks.map((p) => p.mpId)),
@@ -360,22 +366,22 @@ function MPRow({
   return (
     <div
       style={style}
-      className={`px-3 py-2 border-b border-zinc-100 dark:border-zinc-900 flex items-center gap-3 ${
-        picked ? "bg-emerald-50/60 dark:bg-emerald-950/30" : ""
+      className={`px-4 py-3 border-b border-[#b1b4b6] flex items-center gap-3 ${
+        picked ? "bg-[#f3f2f1]" : ""
       }`}
     >
-      <span className={`text-[10px] px-1.5 py-0.5 rounded ${TIER_BADGE[mp.tier]} shrink-0`}>
+      <span className={`govuk-tag ${TIER_TAG[mp.tier]} shrink-0 w-6 text-center`}>
         {mp.tier}
       </span>
       <div className="min-w-0 flex-1">
-        <div className="text-sm font-medium truncate">{mp.name}</div>
-        <div className="text-xs text-zinc-500 truncate">
+        <div className="text-base font-bold truncate text-[#0b0c0c]">{mp.name}</div>
+        <div className="text-sm text-[#505a5f] truncate">
           {mp.constituency}
           {mp.currentRole && (
             <>
               {" · "}
               <span
-                className={`text-[10px] px-1 py-0.5 rounded ${ROLE_BADGE[mp.currentRole.roleType] ?? ""}`}
+                className={`govuk-tag ${ROLE_TAG[mp.currentRole.roleType] ?? ""} text-[10px]`}
               >
                 {ROLE_LABEL[mp.currentRole.roleType] ?? mp.currentRole.roleType}
               </span>{" "}
@@ -384,16 +390,16 @@ function MPRow({
           )}
         </div>
       </div>
-      <span className="text-sm tabular-nums w-14 text-right">£{mp.price.toFixed(2)}</span>
+      <span className="text-base font-bold tabular-nums w-16 text-right">£{mp.price.toFixed(2)}</span>
       <button
         type="button"
         disabled={locked}
         onClick={() => onToggle(mp.id)}
-        className={`shrink-0 text-xs px-2.5 py-1 rounded-md border ${
+        className={`shrink-0 ${
           picked
-            ? "bg-emerald-600 text-white border-emerald-600"
-            : "border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800"
-        } disabled:opacity-50`}
+            ? "govuk-button govuk-button--secondary"
+            : "govuk-button"
+        }`}
       >
         {picked ? "Picked" : "Add"}
       </button>

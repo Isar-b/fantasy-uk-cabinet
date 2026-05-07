@@ -8,16 +8,18 @@ export default async function HomePage() {
   const score = timeUntil(SCORING_DATE);
 
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
-      <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-3">
+    <div className="max-w-[960px] mx-auto px-4 sm:px-6 py-8 sm:py-12">
+      <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-4 text-[#0b0c0c]">
         Fantasy UK Cabinet
       </h1>
-      <p className="text-lg text-zinc-600 dark:text-zinc-400 mb-8">
+      <p className="text-xl text-[#0b0c0c] mb-2 max-w-3xl">
         Pick 10 Labour MPs for £100. Score points if they&rsquo;re in cabinet on{" "}
         <strong>1 July 2026</strong>. Predict the exact role for bonus points.
       </p>
 
-      <section className="mb-8 grid gap-4 sm:grid-cols-2">
+      <hr className="govuk-section-break govuk-section-break--l" style={{ borderBottom: "4px solid #1d70b8" }} />
+
+      <section className="grid gap-6 sm:grid-cols-2 mb-10">
         <CountdownCard
           label="Squad lock"
           target="20 June 2026"
@@ -35,36 +37,29 @@ export default async function HomePage() {
       </section>
 
       <section className="mb-10">
-        <h2 className="text-xl font-semibold mb-3">How it scores</h2>
-        <ul className="space-y-2 text-sm">
-          <li>🏆 <strong>Prime Minister</strong>: 5 points (+3 if predicted exactly)</li>
-          <li>🥇 <strong>Great Office</strong> (Chancellor / Foreign / Home / Defence): 3 points (+2 exact)</li>
-          <li>🪑 <strong>Cabinet minister</strong> (Sec of State, Deputy PM, etc.): 2 points (+1 exact)</li>
-          <li>📎 <strong>Attending cabinet</strong> without portfolio: 1 point</li>
-          <li>🪑 <em>Backbench / not in cabinet</em>: 0</li>
+        <h2 className="text-2xl font-bold mb-4 govuk-heading-with-rule">
+          How it scores
+        </h2>
+        <ul className="space-y-2 text-base">
+          <li><strong>Prime Minister</strong>: 5 points (+3 if predicted exactly)</li>
+          <li><strong>Great Office</strong> (Chancellor / Foreign / Home / Defence): 3 points (+2 exact)</li>
+          <li><strong>Cabinet minister</strong> (Sec of State, Deputy PM, etc.): 2 points (+1 exact)</li>
+          <li><strong>Attending cabinet</strong> without portfolio: 1 point</li>
+          <li><em>Backbench / not in cabinet</em>: 0 points</li>
         </ul>
       </section>
 
       <div className="flex flex-wrap gap-3">
         {user ? (
-          <Link
-            href="/pick"
-            className="px-5 py-3 rounded-md bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 font-medium"
-          >
-            Pick your squad →
+          <Link href="/pick" className="govuk-button !no-underline">
+            Pick your squad
           </Link>
         ) : (
-          <Link
-            href="/login"
-            className="px-5 py-3 rounded-md bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 font-medium"
-          >
+          <Link href="/login" className="govuk-button !no-underline">
             Sign in to play
           </Link>
         )}
-        <Link
-          href="/leaderboard"
-          className="px-5 py-3 rounded-md border border-zinc-300 dark:border-zinc-700 font-medium"
-        >
+        <Link href="/leaderboard" className="govuk-button govuk-button--secondary !no-underline !text-[#0b0c0c]">
           See leaderboard
         </Link>
       </div>
@@ -86,12 +81,14 @@ function CountdownCard({
   past: boolean;
 }) {
   return (
-    <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4">
-      <div className="text-xs uppercase tracking-wide text-zinc-500">{label}</div>
-      <div className="text-2xl font-semibold mt-1">
-        {past ? "Passed" : `${d}d ${h}h`}
+    <div className="border-l-[10px] border-[#1d70b8] pl-4 py-1">
+      <div className="text-sm uppercase tracking-wide text-[#505a5f] font-bold">
+        {label}
       </div>
-      <div className="text-xs text-zinc-500 mt-1">{target}</div>
+      <div className="text-3xl font-bold mt-1 text-[#0b0c0c]">
+        {past ? "Passed" : `${d} days, ${h} hours`}
+      </div>
+      <div className="text-sm text-[#505a5f] mt-1">{target}</div>
     </div>
   );
 }
