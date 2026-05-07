@@ -39,7 +39,16 @@ function pick(working: string, seed: string): string {
 }
 
 async function main() {
-  const redis = Redis.fromEnv();
+  const url =
+    process.env.UPSTASH_REDIS_REST_URL ?? process.env.KV_REST_API_URL;
+  const token =
+    process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.KV_REST_API_TOKEN;
+  if (!url || !token) {
+    throw new Error(
+      "Set UPSTASH_REDIS_REST_URL+TOKEN or KV_REST_API_URL+TOKEN before running."
+    );
+  }
+  const redis = new Redis({ url, token });
 
   const mps = await readJsonOrEmpty<MP[]>(pick("mps.json", "mps.seed.json"), []);
   const roles = await readJsonOrEmpty<RoleAssignment[]>(
