@@ -47,3 +47,5 @@ data/leagues.json
 data/settings.json
 data/mps.json
 data/role-assignments.json
+
+.vercel

@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { getCurrentUser, isAdmin } from "@/lib/auth";
 import { store } from "@/lib/store";
 import knownRoles from "@/data/known-roles.json";
-import { addRoleAction, endRoleAction, setFreezeAction, updateMPAction } from "./actions";
+import { addRoleAction, endRoleAction, seedFromJsonAction, setFreezeAction, updateMPAction } from "./actions";
 
 export const dynamic = "force-dynamic";
 
@@ -59,6 +59,18 @@ export default async function AdminPage(props: {
         <p className="text-xs text-zinc-500 mt-1">
           Deadline: {settings.swapDeadline} · Scoring: {settings.scoringDate}
         </p>
+
+        <details className="mt-4">
+          <summary className="text-sm cursor-pointer">Seed store from bundled JSON</summary>
+          <form action={seedFromJsonAction} className="mt-2 flex items-center gap-3">
+            <button className="px-3 py-1.5 rounded-md text-sm bg-amber-600 text-white">
+              Run seed
+            </button>
+            <p className="text-xs text-zinc-500">
+              Loads <code>data/mps.seed.json</code> and <code>data/role-assignments.seed.json</code> into the store. Overwrites MPs and replaces all role assignments. Safe to re-run after a roster refresh.
+            </p>
+          </form>
+        </details>
       </section>
 
       <section>

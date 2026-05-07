@@ -94,3 +94,23 @@ export async function setFreezeAction(formData: FormData): Promise<void> {
   revalidatePath("/admin");
   revalidatePath("/pick");
 }
+
+// One-time seed: load the JSON files baked into the deploy and write them to
+// the configured store. Used to populate KV on first prod deploy. Safe to run
+// repeatedly — overwrites the store snapshot.
+export async function seedFromJsonAction(): Promise<void> {
+  await requireAdmin();
+  const mps = (await import("@/data/mps.seed.json")).default as unknown as Awaited<
+    ReturnType<typeof store.listMPs>
+  >;
+  const roles = (await import("@/data/role-assignments.seed.json"))
+    .default as unknown as Awaited<ReturnType<typeof store.listRoleAssignments>>;
+  // Replace MPs with the seeded list.
+  for (const mp of mps) {
+    await store.upsertMP(mp);
+  }
+  await store.replaceRoleAssignments(roles);
+  revalidatePath("/admin");
+  revalidatePath("/pick");
+  revalidatePath("/leaderboard");
+}
