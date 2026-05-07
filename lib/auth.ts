@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { v4 as uuid } from "uuid";
 import { store } from "./store";
 import type { User } from "./types";
+import { auth as nextAuthSession, oauthEnabled } from "@/auth";
 
 const COOKIE_NAME = "fcuk_user";
 
@@ -16,6 +17,27 @@ const ADMIN_EMAILS = (process.env.ADMIN_EMAILS ?? "")
   .filter(Boolean);
 
 export async function getCurrentUser(): Promise<User | null> {
+  if (oauthEnabled) {
+    const session = await nextAuthSession();
+    if (!session?.user?.email) return null;
+    const id = (session.user as { id?: string }).id ?? `google:${session.user.email}`;
+    let user = await store.getUser(id);
+    if (!user) {
+      user = {
+        id,
+        displayName: session.user.name ?? session.user.email,
+        email: session.user.email,
+        createdAt: new Date().toISOString(),
+      };
+      await store.upsertUser(user);
+    } else if (user.email !== session.user.email) {
+      // Keep email in sync if Google has changed it.
+      user = { ...user, email: session.user.email };
+      await store.upsertUser(user);
+    }
+    return user;
+  }
+
   const c = await cookies();
   const id = c.get(COOKIE_NAME)?.value;
   if (!id) return null;
@@ -41,6 +63,7 @@ export async function requireAdmin(): Promise<User> {
   return u;
 }
 
+// Mock-auth helpers — used only when OAuth is not configured (local dev).
 export async function loginAs(displayName: string): Promise<User> {
   const cleaned = displayName.trim();
   if (!cleaned) throw new Error("Display name required");

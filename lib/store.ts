@@ -43,5 +43,7 @@ export interface Store {
 }
 
 import { fsStore } from "./store-fs";
+import { kvStore } from "./store-kv";
 
-export const store: Store = fsStore;
+const backend = (process.env.STORE_BACKEND ?? "fs").toLowerCase();
+export const store: Store = backend === "kv" ? kvStore : fsStore;
